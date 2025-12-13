@@ -1,7 +1,9 @@
 .projects-page {
   min-height: 100vh;
-  background: #000000;
+  background: transparent;
   padding: 140px 7.6923% 100px;
+  position: relative;
+  z-index: 1;
 }
 
 .projects-header {

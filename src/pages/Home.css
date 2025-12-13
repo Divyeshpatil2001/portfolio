@@ -1,22 +1,9 @@
 .home-page {
   min-height: 100vh;
-  /* background: #000000; */
+  background: transparent;
   padding-top: 80px;
   position: relative;
-}
-
-.home-page::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(0, 255, 209, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .home-page > * {
@@ -32,7 +19,7 @@
   padding: 100px 7.6923%;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  background: transparent;
 }
 
 .hero-section::before {
@@ -264,7 +251,7 @@
 /* Stats Section */
 .stats-section {
   padding: 60px 7.6923%;
-  background: #000000;
+  background: transparent;
 }
 
 .stats-grid {
@@ -326,7 +313,7 @@
 /* Skills Section */
 .skills-section {
   padding: 100px 7.6923%;
-  background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+  background: transparent;
   position: relative;
   overflow: hidden;
 }
@@ -371,7 +358,7 @@
 /* About Section */
 .about-section {
   padding: 100px 7.6923%;
-  background: #000000;
+  background: transparent;
 }
 
 .about-content {
@@ -425,7 +412,7 @@
 /* Journey Preview */
 .journey-preview {
   padding: 100px 7.6923%;
-  background: #000000;
+  background: transparent;
 }
 
 .timeline-preview {
@@ -488,7 +475,7 @@
 /* Featured Projects */
 .featured-projects {
   padding: 100px 7.6923%;
-  background: #000000;
+  background: transparent;
 }
 
 .projects-grid {

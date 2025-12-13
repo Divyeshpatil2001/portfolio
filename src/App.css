@@ -3,6 +3,7 @@
   background: #000000;
   color: #FFFFFF;
   position: relative;
+  overflow-x: hidden;
 }
 
 * {
@@ -14,10 +15,16 @@
 body {
   overflow-x: hidden;
   position: relative;
+  background: #000000;
 }
 
 /* Ensure content is above 3D background */
 .App > *:not(.three-d-background) {
   position: relative;
-  z-index: 1;
+  z-index: 10;
+}
+
+/* Ensure Header and Footer are above background */
+.App > .three-d-background {
+  z-index: 0;
 }
