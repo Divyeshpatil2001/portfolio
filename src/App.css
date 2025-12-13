@@ -1,0 +1,23 @@
+.App {
+  min-height: 100vh;
+  background: #000000;
+  color: #FFFFFF;
+  position: relative;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ensure content is above 3D background */
+.App > *:not(.three-d-background) {
+  position: relative;
+  z-index: 1;
+}
