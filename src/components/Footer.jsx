@@ -2,6 +2,7 @@ import React from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -36,10 +37,10 @@ const Footer = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <h4 className="footer-heading">Navigation</h4>
-              <a href="/" className="footer-link">Home</a>
-              <a href="/journey" className="footer-link">Journey</a>
-              <a href="/projects" className="footer-link">Projects</a>
-              <a href="/contact" className="footer-link">Contact</a>
+              <Link to="/" className="footer-link">Home</Link>
+              <Link to="/journey" className="footer-link" >Journey</Link>
+              <Link to="/projects" className="footer-link">Projects</Link>
+              <Link to="/contact" className="footer-link">Contact</Link>
             </motion.div>
 
             <motion.div 
