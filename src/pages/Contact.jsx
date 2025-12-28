@@ -32,8 +32,6 @@ const Contact = () => {
       subject: formData.subject,
       message: formData.message,
     };
-    console.log(data)
-
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
