@@ -51,7 +51,7 @@ const Footer = () => {
             >
               <h4 className="footer-heading">Connect</h4>
               <motion.a 
-                href="https://github.com/divyeshpatil" 
+                href="https://github.com/Divyeshpatil2001" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="footer-link"
@@ -61,7 +61,7 @@ const Footer = () => {
                 <span>GitHub</span>
               </motion.a>
               <motion.a 
-                href="https://linkedin.com/in/divyeshpatil" 
+                href="https://www.linkedin.com/in/divyesh-patil-96941b24b" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="footer-link"
@@ -71,7 +71,7 @@ const Footer = () => {
                 <span>LinkedIn</span>
               </motion.a>
               <motion.a 
-                href="mailto:divyesh.patil@example.com" 
+                href="mailto:patildivyesh861@gmail.com" 
                 className="footer-link"
                 whileHover={{ scale: 1.05, x: 5 }}
               >

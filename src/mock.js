@@ -182,10 +182,10 @@ export const stats = [
 ];
 
 export const contactInfo = {
-  email: "divyesh.patil@example.com",
-  github: "https://github.com/divyeshpatil",
-  linkedin: "https://linkedin.com/in/divyeshpatil",
-  experience: "2.5 years",
+  email: "patildivyesh861@gmail.com",
+  github: "https://github.com/Divyeshpatil2001",
+  linkedin: "https://www.linkedin.com/in/divyesh-patil-96941b24b",
+  experience: "2 years",
   specialization: "Full Stack Development, AI/ML Integration",
   availability: "Open to opportunities"
 };

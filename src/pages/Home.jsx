@@ -149,7 +149,6 @@ const Home = () => {
         <div className="section-header">
           <Sparkles size={32} className="section-icon" />
           <h2 className="section-title">Technical Skills</h2>
-          <p className="section-subtitle">Drag to rotate • Scroll to spin • Hover for details</p>
         </div>
         <SkillsOrbit />
       </section>

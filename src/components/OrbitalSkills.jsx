@@ -364,11 +364,6 @@ const SkillsOrbit = () => {
           <div className="orbit-ring orbit-ring-3" />
           <div className="orbit-ring orbit-ring-4" />
         </div>
-        
-        {/* Instructions */}
-        <div className="orbit-instructions">
-          <p>Drag to rotate • Scroll to spin • Hover for details</p>
-        </div>
       </div>
     </div>
   );

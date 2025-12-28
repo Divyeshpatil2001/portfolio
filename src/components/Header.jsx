@@ -62,7 +62,7 @@ const Header = () => {
 
           <div className="social-icons">
             <motion.a
-              href="https://github.com/divyeshpatil"
+              href="https://github.com/Divyeshpatil2001"
               target="_blank"
               rel="noopener noreferrer"
               className="social-icon"
@@ -73,7 +73,7 @@ const Header = () => {
               <Github size={20} />
             </motion.a>
             <motion.a
-              href="https://linkedin.com/in/divyeshpatil"
+              href="https://www.linkedin.com/in/divyesh-patil-96941b24b"
               target="_blank"
               rel="noopener noreferrer"
               className="social-icon"
