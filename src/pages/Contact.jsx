@@ -89,7 +89,7 @@ const Contact = () => {
                 <Github size={24} className="info-icon" />
                 <div>
                   <p className="info-label">GitHub</p>
-                  <p className="info-value">divyeshpatil</p>
+                  <p className="info-value">Divyesh Patil</p>
                 </div>
               </motion.a>
 
@@ -104,7 +104,7 @@ const Contact = () => {
                 <Linkedin size={24} className="info-icon" />
                 <div>
                   <p className="info-label">LinkedIn</p>
-                  <p className="info-value">divyeshpatil</p>
+                  <p className="info-value">Divyesh Patil</p>
                 </div>
               </motion.a>
             </div>

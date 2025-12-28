@@ -44,6 +44,7 @@
   background: linear-gradient(135deg, rgba(0, 255, 209, 0.1) 0%, transparent 100%);
   opacity: 0;
   transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
 .info-card:hover::before {
@@ -76,6 +77,7 @@
   align-items: flex-start;
   text-decoration: none;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .info-item:hover {
@@ -159,6 +161,7 @@
   background: radial-gradient(circle, rgba(0, 255, 209, 0.1) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
 .contact-form-section:hover::before {
@@ -250,6 +253,7 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
   opacity: 0;
   transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
 .submit-btn:hover:not(:disabled)::before {
