@@ -8,6 +8,7 @@ import Journey from "./pages/Journey";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import ThreeDBackground from "./components/ThreeDBackground";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
+        <WhatsAppButton />
       </BrowserRouter>
     </div>
   );

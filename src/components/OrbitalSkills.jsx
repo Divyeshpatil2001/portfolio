@@ -2,368 +2,229 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { skills } from '../mock';
 import './OrbitalSkills.css';
 
+// Distribute N points on a sphere using Fibonacci / golden-angle method
+// Returns array of { x, y, z } unit vectors
+function fibonacciSphere(n) {
+  const points = [];
+  const goldenRatio = (1 + Math.sqrt(5)) / 2;
+  for (let i = 0; i < n; i++) {
+    const theta = Math.acos(1 - (2 * (i + 0.5)) / n); // polar angle
+    const phi = (2 * Math.PI * i) / goldenRatio;       // azimuthal
+    points.push({
+      x: Math.sin(theta) * Math.cos(phi),
+      y: Math.sin(theta) * Math.sin(phi),
+      z: Math.cos(theta),
+    });
+  }
+  return points;
+}
+
+const SPHERE_RADIUS = 220; // px radius of the sphere
+
 const SkillsOrbit = () => {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  // Rotation angles (degrees)
+  const rotationRef = useRef({ x: -20, y: 0 }); // slight initial X tilt
+  const [rotation, setRotation] = useState({ x: -20, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [lastMouse, setLastMouse] = useState({ x: 0, y: 0 });
-  const animationRef = useRef();
+  const lastMouseRef = useRef({ x: 0, y: 0 });
   const velocityRef = useRef({ x: 0, y: 0 });
   const autoRotateRef = useRef(true);
+  const animationRef = useRef();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
-  // Map skills to the format needed with layers
-  const skillsData = skills.map((skill, index) => ({
-    name: skill.name,
-    icon: skill.icon || '💻',
-    color: skill.color || '#00FFD1',
-    layer: skill.layer || ((index % 3) + 1),
-  }));
+  // Compute base positions on sphere surface (Fibonacci distribution)
+  const spherePositions = fibonacciSphere(skills.length);
 
-  // Improved animation loop with better timing
+  // ── Animation loop ──
   useEffect(() => {
     let lastTime = 0;
-    
+
     const animate = (currentTime) => {
       if (!lastTime) lastTime = currentTime;
-      const deltaTime = currentTime - lastTime;
+      const dt = currentTime - lastTime;
       lastTime = currentTime;
-      
+
       if (autoRotateRef.current && !isDragging) {
-        // Smoother auto-rotation with time-based animation
-        setRotation(prev => ({
-          x: prev.x,
-          y: prev.y + (deltaTime * 0.02) // Time-based rotation for consistent speed
-        }));
-      } else if (!isDragging && Math.abs(velocityRef.current.y) > 0.01) {
-        // Apply momentum with time-based decay
-        setRotation(prev => ({
-          x: prev.x,
-          y: prev.y + velocityRef.current.y
-        }));
-        velocityRef.current.y *= 0.98; // Smoother decay
+        rotationRef.current = {
+          x: rotationRef.current.x,
+          y: rotationRef.current.y + dt * 0.018, // deg/ms → slow auto-spin
+        };
+        setRotation({ ...rotationRef.current });
+      } else if (!isDragging) {
+        // Momentum decay
+        const vx = velocityRef.current.x;
+        const vy = velocityRef.current.y;
+        if (Math.abs(vx) > 0.01 || Math.abs(vy) > 0.01) {
+          rotationRef.current = {
+            x: rotationRef.current.x + vx,
+            y: rotationRef.current.y + vy,
+          };
+          velocityRef.current.x *= 0.95;
+          velocityRef.current.y *= 0.95;
+          setRotation({ ...rotationRef.current });
+        }
       }
-      
+
       animationRef.current = requestAnimationFrame(animate);
     };
-    
+
     animationRef.current = requestAnimationFrame(animate);
-    
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, [isDragging]);
 
-  // Improved mouse handlers
-  const handleMouseDown = useCallback((e) => {
+  // ── Mouse handlers ──
+  const startDrag = useCallback((clientX, clientY) => {
     setIsDragging(true);
     autoRotateRef.current = false;
-    setLastMouse({ x: e.clientX, y: e.clientY });
+    lastMouseRef.current = { x: clientX, y: clientY };
     velocityRef.current = { x: 0, y: 0 };
   }, []);
 
-  const handleMouseMove = useCallback((e) => {
+  const moveDrag = useCallback((clientX, clientY) => {
     if (!isDragging) return;
-    
-    const deltaX = e.clientX - lastMouse.x;
-    const sensitivity = 0.8; // Reduced for smoother control
-    
-    velocityRef.current = {
-      x: 0,
-      y: deltaX * sensitivity
+    const dx = clientX - lastMouseRef.current.x;
+    const dy = clientY - lastMouseRef.current.y;
+    const sens = 0.45;
+    velocityRef.current = { x: -dy * sens, y: dx * sens };
+    rotationRef.current = {
+      x: rotationRef.current.x - dy * sens,
+      y: rotationRef.current.y + dx * sens,
     };
-    
-    setRotation(prev => ({
-      x: prev.x,
-      y: prev.y + deltaX * sensitivity
-    }));
-    
-    setLastMouse({ x: e.clientX, y: e.clientY });
-  }, [isDragging, lastMouse]);
+    setRotation({ ...rotationRef.current });
+    lastMouseRef.current = { x: clientX, y: clientY };
+  }, [isDragging]);
 
-  const handleMouseUp = useCallback(() => {
+  const endDrag = useCallback(() => {
     setIsDragging(false);
     setTimeout(() => {
-      if (Math.abs(velocityRef.current.y) < 0.1) {
+      if (Math.abs(velocityRef.current.x) < 0.1 && Math.abs(velocityRef.current.y) < 0.1) {
         autoRotateRef.current = true;
       }
-    }, 1000);
+    }, 1200);
   }, []);
 
-  const handleWheel = useCallback((e) => {
-    e.preventDefault();
-    autoRotateRef.current = false;
-    
-    const sensitivity = 0.2;
-    setRotation(prev => ({
-      x: prev.x,
-      y: prev.y + e.deltaY * sensitivity
-    }));
-    
-    setTimeout(() => {
-      autoRotateRef.current = true;
-    }, 1000);
-  }, []);
-
-  // Touch handlers
+  const handleMouseDown = useCallback((e) => startDrag(e.clientX, e.clientY), [startDrag]);
+  const handleMouseMove = useCallback((e) => moveDrag(e.clientX, e.clientY), [moveDrag]);
+  const handleMouseUp = useCallback(endDrag, [endDrag]);
   const handleTouchStart = useCallback((e) => {
-    if (e.touches.length === 1) {
-      setIsDragging(true);
-      autoRotateRef.current = false;
-      setLastMouse({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-      velocityRef.current = { x: 0, y: 0 };
-    }
-  }, []);
-
+    if (e.touches.length === 1) startDrag(e.touches[0].clientX, e.touches[0].clientY);
+  }, [startDrag]);
   const handleTouchMove = useCallback((e) => {
-    if (!isDragging || e.touches.length !== 1) return;
-    
-    e.preventDefault();
-    const deltaX = e.touches[0].clientX - lastMouse.x;
-    const sensitivity = 0.8;
-    
-    velocityRef.current = {
-      x: 0,
-      y: deltaX * sensitivity
-    };
-    
-    setRotation(prev => ({
-      x: prev.x,
-      y: prev.y + deltaX * sensitivity
-    }));
-    
-    setLastMouse({ x: e.touches[0].clientX, y: e.touches[0].clientY });
-  }, [isDragging, lastMouse]);
-
-  const handleTouchEnd = useCallback(() => {
-    setIsDragging(false);
-    setTimeout(() => {
-      if (Math.abs(velocityRef.current.y) < 0.1) {
-        autoRotateRef.current = true;
-      }
-    }, 1000);
-  }, []);
+    if (e.touches.length === 1) { e.preventDefault(); moveDrag(e.touches[0].clientX, e.touches[0].clientY); }
+  }, [moveDrag]);
+  const handleTouchEnd = useCallback(endDrag, [endDrag]);
 
   if (!mounted) return null;
 
-  const layer1Skills = skillsData.filter(skill => skill.layer === 1);
-  const layer2Skills = skillsData.filter(skill => skill.layer === 2);
-  const layer3Skills = skillsData.filter(skill => skill.layer === 3);
+  // Convert rotation angles to radians for 3D math
+  const rx = (rotation.x * Math.PI) / 180;
+  const ry = (rotation.y * Math.PI) / 180;
+
+  // Build display data: apply rotation matrix to each sphere point, compute 2D project
+  const nodes = skills.map((skill, i) => {
+    const { x: ux, y: uy, z: uz } = spherePositions[i];
+
+    // Rotate around Y axis first, then X axis
+    // Ry rotation
+    const x1 = ux * Math.cos(ry) + uz * Math.sin(ry);
+    const y1 = uy;
+    const z1 = -ux * Math.sin(ry) + uz * Math.cos(ry);
+
+    // Rx rotation
+    const x2 = x1;
+    const y2 = y1 * Math.cos(rx) - z1 * Math.sin(rx);
+    const z2 = y1 * Math.sin(rx) + z1 * Math.cos(rx);
+
+    // Project to 2D (simple perspective)
+    const perspective = 900;
+    const scale = perspective / (perspective - z2 * SPHERE_RADIUS);
+
+    // Normalize z2 from [-1,1] to [0,1] for depth cues
+    const depth = (z2 + 1) / 2; // 0 = back, 1 = front
+
+    return {
+      skill,
+      px: x2 * SPHERE_RADIUS * scale,   // 2D x offset from center
+      py: y2 * SPHERE_RADIUS * scale,   // 2D y offset from center
+      scale: 0.6 + depth * 0.55,        // far=0.6, near=1.15
+      opacity: 0.35 + depth * 0.65,     // far=0.35, near=1.0
+      z: z2,                             // for z-index sorting
+      zIndex: Math.round(depth * 100),
+    };
+  });
+
+  // Sort back-to-front so front nodes render on top
+  nodes.sort((a, b) => a.z - b.z);
 
   return (
     <div className="skills-orbit-wrapper">
       <div className="orbit-container">
-        {/* Circular glow effect background */}
+        {/* Background glow */}
         <div className="orbit-glow-bg-1" />
         <div className="orbit-glow-bg-2" />
-        
-        {/* Interactive Container */}
+
+        {/* Interactive container */}
         <div
           ref={containerRef}
-          className={`orbit-interactive-container ${isDragging ? 'dragging' : ''}`}
+          className={`orbit-interactive-container orbit-3d ${isDragging ? 'dragging' : ''}`}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
-          onWheel={handleWheel}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Center Core */}
+          {/* Orbital rings (decorative ellipses that hint at the sphere shape) */}
+          <div className="orbit-ring orbit-ring-1" />
+          <div className="orbit-ring orbit-ring-2" />
+          <div className="orbit-ring orbit-ring-3" />
+
+          {/* Center core */}
           <div className="orbit-core">
             <div className="orbit-core-inner">
               <div className="orbit-core-dot" />
             </div>
           </div>
 
-          {/* Layer 1 - Inner orbit */}
-          <div
-            className="orbit-layer orbit-layer-1"
-            style={{
-              transform: `translate(-50%, -50%) rotateZ(${rotation.y}deg)`,
-              transition: isDragging ? 'none' : 'transform 0.05s linear',
-            }}
-          >
-            {layer1Skills.map((skill, index) => {
-              const angle = (index * 360) / layer1Skills.length;
-              const radius = 120;
-              
-              return (
-                <div
-                  key={skill.name}
-                  className="skill-item-wrapper"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: `
-                      translate(-50%, -50%)
-                      rotate(${angle}deg)
-                      translateX(${radius}px)
-                      rotate(-${rotation.y}deg)
-                    `,
-                  }}
-                >
-                  <div 
-                    className="skill-ball skill-ball-layer1"
-                    style={{
-                      background: `linear-gradient(135deg, ${skill.color}20, ${skill.color}40)`,
-                      borderColor: skill.color,
-                      boxShadow: `0 0 20px ${skill.color}40`,
-                    }}
-                  >
-                    <span 
-                      className="skill-icon"
-                      style={{ color: skill.color }}
-                    >
-                      {skill.icon}
-                    </span>
-                  </div>
-                  
-                  {/* Skill name tooltip - show on hover */}
-                  <div className="skill-name-tooltip-wrapper">
-                    <div 
-                      className="skill-name-tooltip"
-                      style={{
-                        borderColor: skill.color,
-                      }}
-                    >
-                      {skill.name}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Layer 2 - Middle orbit (counter-clockwise) */}
-          <div
-            className="orbit-layer orbit-layer-2"
-            style={{
-              transform: `translate(-50%, -50%) rotateZ(${-rotation.y * 0.6}deg)`,
-              transition: isDragging ? 'none' : 'transform 0.05s linear',
-            }}
-          >
-            {layer2Skills.map((skill, index) => {
-              const angle = (index * 360) / layer2Skills.length;
-              const radius = 180;
-              
-              return (
-                <div
-                  key={skill.name}
-                  className="skill-item-wrapper"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: `
-                      translate(-50%, -50%)
-                      rotate(${angle}deg)
-                      translateX(${radius}px)
-                      rotate(${rotation.y * 0.6}deg)
-                    `,
-                  }}
-                >
-                  <div 
-                    className="skill-ball skill-ball-layer2"
-                    style={{
-                      background: `linear-gradient(135deg, ${skill.color}20, ${skill.color}40)`,
-                      borderColor: skill.color,
-                      boxShadow: `0 0 25px ${skill.color}40`,
-                    }}
-                  >
-                    <span 
-                      className="skill-icon"
-                      style={{ color: skill.color }}
-                    >
-                      {skill.icon}
-                    </span>
-                  </div>
-                  
-                  <div className="skill-name-tooltip-wrapper">
-                    <div 
-                      className="skill-name-tooltip"
-                      style={{
-                        borderColor: skill.color,
-                      }}
-                    >
-                      {skill.name}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Layer 3 - Outer orbit */}
-          <div
-            className="orbit-layer orbit-layer-3"
-            style={{
-              transform: `translate(-50%, -50%) rotateZ(${rotation.y * 0.3}deg)`,
-              transition: isDragging ? 'none' : 'transform 0.05s linear',
-            }}
-          >
-            {layer3Skills.map((skill, index) => {
-              const angle = (index * 360) / layer3Skills.length;
-              const radius = 240;
-              
-              return (
-                <div
-                  key={skill.name}
-                  className="skill-item-wrapper"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: `
-                      translate(-50%, -50%)
-                      rotate(${angle}deg)
-                      translateX(${radius}px)
-                      rotate(-${rotation.y * 0.3}deg)
-                    `,
-                  }}
-                >
-                  <div 
-                    className="skill-ball skill-ball-layer3"
-                    style={{
-                      background: `linear-gradient(135deg, ${skill.color}20, ${skill.color}40)`,
-                      borderColor: skill.color,
-                      boxShadow: `0 0 30px ${skill.color}40`,
-                    }}
-                  >
-                    <span 
-                      className="skill-icon"
-                      style={{ color: skill.color }}
-                    >
-                      {skill.icon}
-                    </span>
-                  </div>
-                  
-                  <div className="skill-name-tooltip-wrapper">
-                    <div 
-                      className="skill-name-tooltip"
-                      style={{
-                        borderColor: skill.color,
-                      }}
-                    >
-                      {skill.name}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Orbital rings (visual guides) */}
-          <div className="orbit-ring orbit-ring-1" />
-          <div className="orbit-ring orbit-ring-2" />
-          <div className="orbit-ring orbit-ring-3" />
-          <div className="orbit-ring orbit-ring-4" />
+          {/* Skill nodes */}
+          {nodes.map(({ skill, px, py, scale: nodeScale, opacity, zIndex }) => (
+            <div
+              key={skill.name}
+              className="skill-node-3d"
+              style={{
+                transform: `translate(calc(-50% + ${px}px), calc(-50% + ${py}px)) scale(${nodeScale})`,
+                opacity,
+                zIndex,
+              }}
+            >
+              <div
+                className="skill-ball-3d"
+                style={{
+                  background: `radial-gradient(circle at 35% 35%, ${skill.color}55, ${skill.color}18)`,
+                  borderColor: `${skill.color}99`,
+                  boxShadow: `0 0 ${Math.round(nodeScale * 20)}px ${skill.color}55, inset 0 1px 1px rgba(255,255,255,0.25)`,
+                }}
+              >
+                <span className="skill-icon-3d">{skill.icon}</span>
+              </div>
+              <div
+                className="skill-label-3d"
+                style={{ borderColor: `${skill.color}80`, color: skill.color }}
+              >
+                {skill.name}
+              </div>
+            </div>
+          ))}
         </div>
+
+        {/* Drag hint */}
+        <p className="orbit-hint">Drag to rotate · Scroll on page to spin</p>
       </div>
     </div>
   );
