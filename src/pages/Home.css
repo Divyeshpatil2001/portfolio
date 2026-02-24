@@ -892,19 +892,91 @@
   }
 }
 
-@media (max-width: 768px) {
-  .hero-name {
-    font-size: clamp(44px, 14vw, 76px);
+@media (max-width: 900px) {
+
+  /* ── Hero: stack vertically on tablet & mobile ── */
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding-top: 100px;
+    padding-bottom: 60px;
+    gap: 48px;
+    min-height: unset;
   }
 
-  .hero-topbar {
-    padding-top: 88px;
+  .hero-left {
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-avail {
+    align-self: center;
+  }
+
+  .hero-tagline {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-name {
+    font-size: clamp(44px, 13vw, 72px);
+  }
+
+  .hero-actions {
+    justify-content: center;
   }
 
   .hero-stats {
-    gap: 20px;
+    gap: 24px;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  /* Photo comes below text */
+  .hero-right {
+    order: 2;
+    /* prevent badges from overflowing outside the column */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .hero-photo-frame {
+    width: min(280px, 75vw);
+    height: min(340px, 90vw);
+  }
+
+  /* Hide large rings — too big for mobile */
+  .hero-ring {
+    display: none;
+  }
+
+  /* Move badges INSIDE the photo area — no negative offsets */
+  .hero-float-badge {
+    left: 8px;
+    right: auto;
+    bottom: 8px;
+    top: auto;
+    font-size: 12px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .hero-float-badge-2 {
+    right: 8px;
+    left: auto;
+    top: 8px;
+    bottom: auto;
+    font-size: 12px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+
+  /* Rest of page */
   .about-strip-inner {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -943,12 +1015,22 @@
     gap: 8px;
   }
 
+  .hero-name {
+    font-size: clamp(38px, 12vw, 58px);
+  }
+
   .hero-actions {
     flex-direction: column;
+    width: 100%;
   }
 
   .hero-btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .hero-photo-frame {
+    width: min(240px, 72vw);
+    height: min(290px, 86vw);
   }
 }
