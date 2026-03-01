@@ -130,6 +130,21 @@ const ProjectDrawer = ({ project, onClose }) => {
     return () => { document.body.style.overflow = ''; };
   }, []);
 
+  // stop wheel/touchmove events bubbling to parent (prevents parent scroll when reaching drawer boundaries)
+  useEffect(() => {
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+    const handler = (e) => {
+      e.stopPropagation();
+    };
+    drawer.addEventListener('wheel', handler, { passive: false });
+    drawer.addEventListener('touchmove', handler, { passive: false });
+    return () => {
+      drawer.removeEventListener('wheel', handler);
+      drawer.removeEventListener('touchmove', handler);
+    };
+  }, []);
+
   return (
     <AnimatePresence>
       <motion.div
