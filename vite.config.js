@@ -22,6 +22,22 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    // increase the warning threshold so transient big chunks don't spam
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // split large vendors into their own files
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) {
+              return 'three';
+            }
+            // you can add more libraries here if needed
+            return 'vendor';
+          }
+        },
+      },
+    },
   },
 });
 

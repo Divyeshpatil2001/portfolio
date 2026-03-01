@@ -50,11 +50,10 @@ export function createThreeScene(canvas) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.0;
 
-  // Output encoding (for Three.js versions < r152)
-  // In newer versions, use outputColorSpace instead
-  if (renderer.outputEncoding !== undefined) {
-    renderer.outputEncoding = THREE.sRGBEncoding;
-  } else if (renderer.outputColorSpace !== undefined) {
+  // Output color space configuration
+  // In current Three.js versions (>= r152) use outputColorSpace.
+  // Older builds may not have this property, in which case we simply skip it.
+  if (renderer.outputColorSpace !== undefined) {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
   }
 
