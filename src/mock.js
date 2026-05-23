@@ -183,6 +183,74 @@ export const projects = [
     featured: true,
   },
 
+
+  {
+    id: 14,
+    title: "ThroughLine – Mental Health Companion App",
+    category: "Mobile",
+    projectType: "Company",
+    year: "2025",
+    shortDesc: "Production React Native therapy app with AI chat, voice recording, Apple IAP, and push notifications",
+    description:
+      "Architected and shipped a production React Native (Expo) mental health companion app to the App Store, serving active subscribers. Built a rich AI-powered chat interface with real-time streaming responses, native voice recording via Expo AV, and a structured therapy session planner with interactive focus flows. Engineered 3 core FastAPI backend endpoints: streaming LLM chat, Deepgram voice transcription, and AI-driven planner topic generation. Integrated RevenueCat SDK for cross-platform subscription management and built FastAPI webhook handlers to process Apple In-App Purchase (IAP) lifecycle events, enforce paywalls, and handle subscription conversions and lapses. Built a configurable push notification system using Supabase Edge Functions and Expo Push API with user-controlled cadence, snooze/dismiss tracking, and a client-side opt-in modal. Implemented GDPR-compliant PostHog analytics with manual React Navigation screen tracking and scoped touch autocapture.",
+    challenge:
+      "Syncing real-time AI streaming responses with native mobile UX constraints — ensuring smooth perceived performance on the chat interface without blocking the UI thread, while handling subscription state changes from Apple's IAP system asynchronously via webhooks.",
+    impact: [
+      "Shipped and live on the App Store with active subscribers",
+      "Apple IAP + RevenueCat subscription lifecycle fully automated",
+      "GDPR-compliant PostHog analytics with scoped autocapture",
+      "Configurable push notification system with per-user scheduling",
+    ],
+    technologies: ["React Native", "Expo", "Expo AV", "FastAPI", "Supabase", "RevenueCat", "Apple IAP", "Deepgram", "PostHog", "Loops API", "Expo Push API", "Python"],
+    liveUrl: "",
+    githubUrl: "",
+    featured: true,
+  },
+
+  {
+    id: 15,
+    title: "Solaris Finance Platform",
+    category: "Web",
+    projectType: "Company",
+    year: "2025",
+    shortDesc: "Contract engagement on a live Laravel + React financial platform — performance, stability, and UI improvements",
+    description:
+      "Engaged on a 3-month contract to stabilize and improve a production Laravel + React financial platform. Diagnosed and resolved critical production bugs, refactored legacy frontend components for maintainability, and delivered UI performance improvements that reduced load times for key user flows. Worked directly within a live codebase where changes required careful regression testing to avoid disrupting active users.",
+    challenge:
+      "Making meaningful improvements to a live financial system with real users — every change required careful scoping and testing to ensure production stability was maintained throughout the contract.",
+    impact: [
+      "Resolved critical production bugs impacting active users",
+      "Improved load times for key financial dashboard flows",
+      "Modernized legacy UI components for long-term maintainability",
+    ],
+    technologies: ["Laravel", "React", "JavaScript", "MySQL", "PHP"],
+    liveUrl: "",
+    githubUrl: "",
+    featured: false,
+  },
+
+  {
+    id: 16,
+    title: "LLM System Refactor & AI Dashboard",
+    category: "AI/ML",
+    projectType: "Company",
+    year: "2025",
+    shortDesc: "Refactored LLM pipeline with reduced latency and a new React Native AI-powered dashboard",
+    description:
+      "Led an end-to-end refactor of an existing LLM-based system, improving prompt handling, backend workflow architecture, and response generation pipelines to reduce latency and increase output consistency. In parallel, designed and developed a new React Native dashboard integrating AI-driven features including real-time chat and emotion-based insight modules. The engagement covered bug resolution, architectural refactoring, and performance optimization across both backend Python services and the mobile layer — all without disrupting the live production system.",
+    challenge:
+      "Improving an LLM pipeline already in production — identifying bottlenecks in prompt construction and response handling without introducing regressions, while simultaneously delivering a new mobile dashboard that consumes the refactored APIs.",
+    impact: [
+      "Measurably reduced LLM response latency and improved output consistency",
+      "New React Native AI dashboard shipped with real-time chat and emotion insights",
+      "Architectural improvements increased system scalability and maintainability",
+    ],
+    technologies: ["Python", "FastAPI", "OpenAI", "React Native", "Zustand", "LLM", "Prompt Engineering"],
+    liveUrl: "",
+    githubUrl: "",
+    featured: true,
+  },
+
   // ──────────────── FREELANCE PROJECTS ────────────────
   {
     id: 10,
@@ -203,6 +271,29 @@ export const projects = [
     liveUrl: "",
     githubUrl: "",
     featured: false,
+  },
+
+    {
+    id: 17,
+    title: "NE Vernacular AI — Multilingual AI Platform",
+    category: "AI/ML",
+    projectType: "Freelance",
+    year: "2026",
+    shortDesc: "Full-stack multilingual AI platform for North-East Indian languages with translation, TTS, ASR, and AI video generation",
+    description:
+      "Built a full-stack multilingual AI platform targeting North-East Indian languages (Assamese, Bodo, Manipuri, Meitei, Nepali, Khasi, Mizo, and more) using a 3-service Docker Compose architecture: React/TypeScript (Vite) frontend, Express/Node.js TypeScript proxy backend with JWT auth middleware, and a Python FastAPI service handling all AI operations. Integrated Sarvam AI as the primary provider for translation (sarvam-translate:v1), TTS (Bulbul v3 with language proxy mapping for unsupported scripts), and ASR (Saaras v3). Used Google Gemini as an automatic fallback for rare NE Indian scripts (Khasi, Mizo, Tripuri, Meitei). Implemented dual ASR input: browser-native Web Speech API with real-time interim results and audio level visualisation (zero backend cost), and server-side ASR via file upload to Sarvam. Added HeyGen AI avatar video and Seedance/Fal AI scene video generation pipelines with async job polling, plus a translation caching layer to reduce redundant API costs.",
+    challenge:
+      "Handling coverage across 12+ North-East Indian languages with varying levels of AI provider support — designing a graceful multi-provider fallback system so that Sarvam handled mainstream languages natively while Gemini covered rare scripts like Meitei Mayek and Khasi, without exposing this complexity to the frontend.",
+    impact: [
+      "12+ NE Indian languages supported via Sarvam AI + Gemini dual-provider routing",
+      "Dual ASR: real-time Web Speech API + server-side Sarvam Saaras v3 file upload",
+      "AI avatar (HeyGen) and scene video (Seedance/Fal AI) generation pipelines",
+      "Translation caching layer reducing redundant API calls and operating costs",
+    ],
+    technologies: ["React", "TypeScript", "Vite", "FastAPI", "Python", "Node.js", "Express", "Sarvam AI", "Google Gemini", "HeyGen", "Fal AI", "Seedance", "Docker Compose", "JWT", "Web Speech API"],
+    liveUrl: "",
+    githubUrl: "",
+    featured: true,
   },
 
   // ──────────────── KEY / LEARNING PROJECTS ────────────────
@@ -341,8 +432,8 @@ export const skills = [
 ];
 
 export const stats = [
-  { label: "Projects Completed", value: "15+" },
-  { label: "Years Experience", value: "2+" },
+  { label: "Projects Completed", value: "17+" },
+  { label: "Years Experience", value: "2.5+" },
   { label: "CGPA Achieved", value: "8.3" },
 ];
 
