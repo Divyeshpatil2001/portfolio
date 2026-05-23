@@ -480,12 +480,10 @@
    SKILLS SECTION
 ══════════════════════════════════ */
 .skills-section {
-  padding: 100px 6%;
-  text-align: center;
-}
-
-.skills-section .section-heading {
-  margin-bottom: 60px;
+  /* No padding at all — ScrollTerminal manages its own layout via sticky */
+  padding: 0;
+  /* CRITICAL: overflow must NOT be hidden or the sticky child breaks */
+  overflow: visible;
 }
 
 /* ══════════════════════════════════

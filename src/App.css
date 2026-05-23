@@ -3,7 +3,9 @@
   background: #000000;
   color: #FFFFFF;
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x:clip prevents horizontal scroll without breaking position:sticky.
+     overflow-x:hidden would create a scroll container and break sticky children. */
+  overflow-x: clip;
 }
 
 * {
@@ -13,7 +15,8 @@
 }
 
 body {
-  overflow-x: hidden;
+  /* Same fix: clip instead of hidden */
+  overflow-x: clip;
   position: relative;
   background: #000000;
 }

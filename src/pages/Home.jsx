@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Download, ArrowUpRight, MapPin, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
-import SkillsOrbit from '../components/OrbitalSkills';
+import ScrollTerminal from '../components/ScrollTerminal';
 import { stats, projects, timeline } from '../mock';
 import './Home.css';
 
@@ -240,12 +240,10 @@ const Home = () => {
       </section>
 
       {/* ════════════════════════════════
-          SKILLS ORBIT
+          SKILLS — scroll-driven terminal
       ════════════════════════════════ */}
       <section className="skills-section">
-        <div className="section-eyebrow">Technical Skills</div>
-        <h2 className="section-heading">Stack &amp; Expertise</h2>
-        <SkillsOrbit />
+        <ScrollTerminal />
       </section>
 
       {/* ════════════════════════════════
