@@ -129,7 +129,7 @@ const Header = () => {
               transition={{ duration: 0.3, delay: 0.4 }}
             >
               <a
-                href="https://github.com/divyeshpatil"
+                href="https://github.com/Divyeshpatil2001"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon"
@@ -138,7 +138,7 @@ const Header = () => {
                 <Github size={20} />
               </a>
               <a
-                href="https://linkedin.com/in/divyeshpatil"
+                href="https://linkedin.com/in/divyesh-patil-96941b24b"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon"
