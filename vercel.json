@@ -1,8 +1,12 @@
 {
-  "rewrites": [
+  "installCommand": "echo skip",
+  "buildCommand": "echo skip",
+  "outputDirectory": "maintenance",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "headers": [
     {
       "source": "/(.*)",
-      "destination": "/"
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
     }
   ]
 }

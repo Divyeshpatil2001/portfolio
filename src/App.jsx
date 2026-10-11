@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import Journey from "./pages/Journey";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
-import ThreeDBackground from "./components/ThreeDBackground";
-import WhatsAppButton from "./components/WhatsAppButton";
+// MAINTENANCE MODE: original imports/routes commented out below. Restore to re-enable the site.
+// import Header from "./components/Header";
+// import Footer from "./components/Footer";
+// import Home from "./pages/Home";
+// import Journey from "./pages/Journey";
+// import Projects from "./pages/Projects";
+// import Contact from "./pages/Contact";
+// import ThreeDBackground from "./components/ThreeDBackground";
+// import WhatsAppButton from "./components/WhatsAppButton";
+import Maintenance from "./pages/Maintenance";
 import Lenis from "lenis";
 
 /* ── Smooth scroll via Lenis ── */
@@ -45,6 +47,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        {/* MAINTENANCE MODE: every path shows the maintenance page */}
+        <Routes>
+          <Route path="*" element={<Maintenance />} />
+        </Routes>
+
+        {/* ORIGINAL APP (restore to go live again)
         <SmoothScroll />
         <ScrollToTop />
         <ThreeDBackground />
@@ -57,6 +65,7 @@ function App() {
         </Routes>
         <Footer />
         <WhatsAppButton />
+        */}
       </BrowserRouter>
     </div>
   );

@@ -1,0 +1,226 @@
+export const projects = [
+  // ──────────────── COMPANY PROJECTS ────────────────
+  {
+    id: 1,
+    title: "Trip Management Mobile App",
+    category: "Mobile",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "Cross-platform travel app with scalable navigation architecture and real-time trip flow handling",
+    description:
+      "Engineered a React Native mobile application for managing trip workflows with API-driven data flow and Redux state management. Designed scalable navigation architecture using nested stacks and deep linking. Optimized UI responsiveness across Android and iOS devices and delivered production builds to app stores.",
+    challenge:
+      "Handling platform-specific back navigation inconsistencies across Android and iOS by implementing centralized navigation control and state persistence.",
+    impact: [
+      "Improved navigation reliability and reduced unexpected app exits",
+      "Enhanced cross-platform user experience",
+    ],
+    technologies: ["React Native", "React Navigation", "Redux", "REST API", "Android", "iOS"],
+    featured: true,
+  },
+
+  {
+    id: 2,
+    title: "FX Company Website Revamp",
+    category: "Web",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "High-performance website redesign with 40% load-time improvement",
+    description:
+      "Led redesign of company website with interactive UI components and optimized performance using WebP images, CSS sprites, and JS minification. Implemented responsive layouts based on Figma designs.",
+    challenge:
+      "Balancing performance and UI richness using optimized asset delivery and reduced HTTP requests.",
+    impact: [
+      "Achieved ~40% faster load time",
+      "Reduced asset size and improved performance score",
+    ],
+    technologies: ["HTML", "CSS", "JavaScript", "WebP", "Figma"],
+  },
+
+  {
+    id: 3,
+    title: "Haveto Crypto Payment Gateway",
+    category: "Backend",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "Multi-currency crypto payment system with webhook-based tracking",
+    description:
+      "Built payment system using Coinremitter with webhook infrastructure for real-time transaction updates. Integrated SendGrid for notifications and designed seamless frontend payment handling.",
+    challenge:
+      "Ensuring idempotent webhook handling to avoid duplicate transaction processing.",
+    impact: [
+      "Supports BTC, ETH, DOGE transactions",
+      "Reliable real-time payment tracking",
+    ],
+    technologies: ["Node.js", "Coinremitter", "Webhook", "SendGrid"],
+  },
+
+  {
+    id: 4,
+    title: "Valunova Medical Sales System",
+    category: "Backend",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "Medical distribution platform with commission engine",
+    description:
+      "Designed backend system with ERD, invoice generation, and multi-level commission logic. Built optimized queries for reporting and inventory tracking.",
+    challenge:
+      "Handling multi-level commission calculations efficiently on large datasets.",
+    impact: [
+      "Accurate commission distribution",
+      "Optimized reporting queries",
+    ],
+    technologies: ["PostgreSQL", "Django", "REST API"],
+  },
+
+  {
+    id: 5,
+    title: "Ski-Lift Status Bot",
+    category: "Automation",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "Automated bot scraping ski-lift data with AI notifications",
+    description:
+      "Built Python-based scraper for multiple Japanese websites with change detection logic. Integrated Telegram bot and OpenAI for contextual notifications.",
+    challenge:
+      "Handling inconsistent HTML structures and filtering noise from updates.",
+    impact: [
+      "Automated monitoring every 15–20 minutes",
+      "AI-based contextual notifications",
+    ],
+    technologies: ["Python", "Docker", "Telegram API", "OpenAI", "BeautifulSoup"],
+  },
+
+  {
+    id: 6,
+    title: "Astrology Chatbot App",
+    category: "Mobile",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "AI-powered astrology mobile app with subscriptions",
+    description:
+      "Developed React Native app with Laravel backend supporting chat, remedies, and compatibility features. Implemented Razorpay subscriptions, Google Play Billing, and Apple IAP.",
+    challenge:
+      "Handling real-time chat with varying response sizes and maintaining smooth UI performance.",
+    impact: [
+      "Deployed on Play Store & App Store",
+      "Implemented subscription-based monetization",
+    ],
+    technologies: ["React Native", "Laravel", "MySQL", "Razorpay", "IAP"],
+  },
+
+  {
+    id: 7,
+    title: "BPMN Diagram Generator",
+    category: "AI/ML",
+    projectType: "Company",
+    year: "2025",
+    shortDesc: "AI tool converting text/audio to BPMN diagrams",
+    description:
+      "Built WebSocket-based system integrating OpenAI and Whisper to convert user input into BPMN XML diagrams. Deployed using Docker.",
+    challenge:
+      "Ensuring valid BPMN XML generation from ambiguous inputs.",
+    impact: [
+      "Real-time diagram generation",
+      "Supports text and audio input",
+    ],
+    technologies: ["FastAPI", "WebSocket", "OpenAI", "Whisper", "Docker"],
+    featured: true,
+  },
+
+  {
+    id: 8,
+    title: "Face Shape Detection App",
+    category: "AI/ML",
+    projectType: "Company",
+    year: "2024",
+    shortDesc: "AI app with AWS deployment and secure image handling",
+    description:
+      "Built FastAPI + React app with AWS S3, RDS, EC2. Implemented camera capture and secure presigned URL delivery.",
+    challenge:
+      "Maintaining accuracy across diverse inputs and securing image delivery.",
+    impact: [
+      "Cloud deployed AI system",
+      "Secure user-specific image access",
+    ],
+    technologies: ["FastAPI", "React", "AWS S3", "RDS", "EC2"],
+    featured: true,
+  },
+
+  // 🔥 NEW PROJECTS
+
+  {
+    id: 14,
+    title: "Solaris Finance Platform (Contract)",
+    category: "Web",
+    projectType: "Company",
+    year: "2025",
+    shortDesc: "Client-based financial platform with performance and UI improvements",
+    description:
+      "Worked on a 3-month contract project involving a Laravel + React financial platform. Focused on resolving production issues, improving UI performance, and enhancing feature delivery in a live system.",
+    challenge:
+      "Maintaining stability while implementing changes in a live production environment.",
+    impact: [
+      "Improved application stability and performance",
+      "Enhanced maintainability through UI modernization",
+    ],
+    technologies: ["Laravel", "React", "JavaScript"],
+  },
+
+  {
+  id: 15,
+  title: "LLM System Refactor & AI Dashboard",
+  category: "AI/ML",
+  projectType: "Company",
+  year: "2025",
+  shortDesc: "Refactored LLM system with AI-powered dashboard, performance optimization, and architecture improvements",
+  description:
+    "Led refactoring of an existing LLM-based system by improving prompt handling, backend workflows, and response generation for better accuracy and reduced latency. Designed and developed a new React Native dashboard integrating AI-driven features such as chat and emotion-based insights. Worked on end-to-end improvements including bug resolution, code refactoring, and architectural enhancements to ensure scalability and maintainability. Focused on optimizing application performance across both backend and mobile layers for a smoother real-time user experience.",
+  challenge:
+    "Balancing real-time AI interactions with mobile performance constraints while refactoring an existing codebase without disrupting production stability.",
+  impact: [
+    "Reduced LLM response latency and improved output consistency",
+    "Enhanced mobile app performance and stability through architecture optimization",
+    "Delivered AI-powered dashboard with real-time insights and improved user experience",
+  ],
+  technologies: ["Python", "FastAPI", "OpenAI", "React Native", "Zustand"],
+  featured: true,
+},
+
+  // ──────────────── LEARNING PROJECTS ────────────────
+  {
+    id: 11,
+    title: "Cine AI",
+    category: "Web",
+    projectType: "Learning",
+    year: "2023",
+    shortDesc: "AI movie recommendation platform",
+    description:
+      "Built React + Firebase app with TMDB and OpenAI integration for personalized recommendations.",
+    technologies: ["React", "Firebase", "OpenAI"],
+  },
+
+  {
+    id: 12,
+    title: "Authentication System",
+    category: "Web",
+    projectType: "Learning",
+    year: "2023",
+    shortDesc: "Full auth system with OAuth and JWT",
+    description:
+      "Implemented complete authentication system including OAuth, JWT, and email verification.",
+    technologies: ["React", "Node.js", "JWT"],
+  },
+
+  {
+    id: 13,
+    title: "Custom Food Ordering Platform",
+    category: "Web",
+    projectType: "Learning",
+    year: "2023",
+    shortDesc: "Full-stack food ordering app",
+    description:
+      "Built Django + React app with payment integration and admin dashboard.",
+    technologies: ["Django", "React", "Razorpay"],
+  },
+];
